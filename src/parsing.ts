@@ -30,7 +30,12 @@ export const parseFile = async (graph: Graph, filePath: string) => {
   const ast: MarkdownNode = parser.parse(content);
 
   let title: string | null = findTitle(ast);
-
+  let node_filePath = filePath.split("/").join("\\");
+  if (node_filePath[0] === '\\'){
+    node_filePath = node_filePath.substr(1);
+  } else if (node_filePath[0] === '/'){
+    node_filePath = node_filePath.substr(2);
+  }
   const index = graph.nodes.findIndex((node) => node.path === filePath);
 
   if (!title) {
