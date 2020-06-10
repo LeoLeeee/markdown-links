@@ -36,7 +36,8 @@ export const parseFile = async (graph: Graph, filePath: string) => {
   } else if (node_filePath[0] === '/'){
     node_filePath = node_filePath.substr(2);
   }
-  const index = graph.nodes.findIndex((node) => node.path === filePath);
+
+  const index = graph.nodes.findIndex((node) => node.path === node_filePath);
 
   if (!title) {
     if (index !== -1) {
@@ -49,7 +50,7 @@ export const parseFile = async (graph: Graph, filePath: string) => {
   if (index !== -1) {
     graph.nodes[index].label = title;
   } else {
-    graph.nodes.push({ id: id(filePath), path: filePath, label: title });
+    graph.nodes.push({ id: id(filePath), path: node_filePath, label: title });
   }
 
   // Remove edges based on an old version of this file.
